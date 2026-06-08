@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stammtisch Roadtrip 2026 — VW T3 Erprobungsfahrt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF7F0;--forest:#2C4A3E;--forest-light:#3D6455;
+  --amber:#D97706;--amber-light:#F59E0B;--rust:#B45309;
+  --sand:#F2EAD8;--charcoal:#1C2621;--gray:#6B7280;
+  --light:#F0EDE6;--white:#fff;--border:#E5DDD0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--charcoal);line-height:1.6}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(28,38,33,0.96);backdrop-filter:blur(12px);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{font-family:'Playfair Display',serif;color:var(--amber-light);font-size:1rem;font-weight:700;text-decoration:none;letter-spacing:.02em;white-space:nowrap}
+.nav-links{display:flex;gap:.4rem;list-style:none;flex-wrap:wrap;justify-content:flex-end}
+.nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:.8rem;font-weight:500;padding:.35rem .8rem;border-radius:20px;transition:all .2s;border:1px solid transparent}
+.nav-links a:hover{color:#fff;border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.1)}
+.nav-links a.active{color:var(--amber-light);border-color:rgba(245,158,11,.4)}
+
+/* MOBILE STICKY INDICATOR */
+.mob-indicator{
+  display:none;
+  position:fixed;bottom:0;left:0;right:0;z-index:99;
+  background:rgba(28,38,33,0.97);
+  backdrop-filter:blur(12px);
+  padding:.55rem 1.2rem .65rem;
+  border-top:1px solid rgba(245,158,11,.25);
+  flex-direction:column;gap:.1rem;
+  pointer-events:none;
+}
+.mob-ind-etappe{font-size:.65rem;font-weight:700;color:var(--amber-light);text-transform:uppercase;letter-spacing:.14em}
+.mob-ind-route{font-size:.82rem;font-weight:600;color:#fff}
+@media(max-width:768px){.mob-indicator{display:flex}}
+
+/* HERO */
+.hero{min-height:100vh;background:linear-gradient(160deg,#2C4A3E 0%,#1A3329 45%,#0F1F1A 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:6rem 2rem 4rem}
+.hero-road{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:6px;height:45%;background:repeating-linear-gradient(to bottom,rgba(245,158,11,.5) 0,rgba(245,158,11,.5) 18px,transparent 18px,transparent 36px)}
+.hero-mountains{position:absolute;bottom:0;left:0;right:0;height:220px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 220'%3E%3Cpath fill='%231A3329' fill-opacity='0.6' d='M0,220 L0,110 L120,65 L210,95 L330,22 L450,75 L570,32 L690,85 L810,12 L930,65 L1050,28 L1170,78 L1290,42 L1440,95 L1440,220Z'/%3E%3Cpath fill='%230F1F1A' fill-opacity='0.8' d='M0,220 L0,150 L90,120 L180,140 L270,90 L390,130 L480,75 L600,115 L720,65 L840,105 L960,80 L1080,120 L1200,88 L1320,125 L1440,105 L1440,220Z'/%3E%3C/svg%3E") no-repeat bottom;background-size:cover}
+.hero-content{position:relative;z-index:1;text-align:center;max-width:820px}
+.hero-badge{display:inline-block;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);color:var(--amber-light);font-size:.75rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:.45rem 1.2rem;border-radius:50px;margin-bottom:1.5rem}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,6vw,4.5rem);color:#fff;line-height:1.1;margin-bottom:.5rem}
+.hero h1 em{color:var(--amber-light);font-style:italic}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.25rem);color:rgba(255,255,255,.65);margin-bottom:2rem;font-weight:300}
+
+/* VAN IMAGE */
+.van-img-wrap{margin:0 auto 2rem;display:flex;justify-content:center}
+.van-img{width:220px;height:auto;filter:drop-shadow(0 6px 28px rgba(0,0,0,.5));animation:float 4s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.hero-stats{display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.hero-stat-val{display:block;font-size:2rem;font-weight:700;color:#fff;font-family:'Playfair Display',serif}
+.hero-stat-lbl{font-size:.72rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.12em}
+
+.hero-route{display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap}
+.rs{color:rgba(255,255,255,.85);font-size:.85rem;font-weight:500}
+.rs.hl{color:var(--amber-light);font-weight:700}
+.ra{color:rgba(255,255,255,.25);font-size:.9rem}
+
+/* OVERVIEW */
+.overview{background:var(--sand);border-bottom:1px solid var(--border);padding:2rem}
+.overview-inner{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1.25rem}
+.ov-card{background:#fff;border-radius:12px;padding:1.2rem 1.4rem;border:1px solid var(--border)}
+.ov-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);font-weight:600;margin-bottom:.3rem}
+.ov-val{font-size:1.45rem;font-weight:700;color:var(--forest);font-family:'Playfair Display',serif}
+.ov-sub{font-size:.75rem;color:var(--gray);margin-top:.1rem}
+
+/* ETAPPE SECTIONS */
+.etappe-section{padding:4rem 2rem}
+.etappe-section:nth-child(even){background:var(--light)}
+.section-inner{max-width:1200px;margin:0 auto}
+.etappe-label{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:.4rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.7rem);color:var(--charcoal);line-height:1.15;margin-bottom:.6rem}
+.section-meta{display:flex;gap:1.5rem;flex-wrap:wrap;color:var(--gray);font-size:.85rem;margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.section-meta strong{color:var(--charcoal)}
+
+/* CARDS GRID */
+.routes-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:1.5rem}
+
+.route-card{background:#fff;border-radius:18px;border:1.5px solid var(--border);overflow:hidden;transition:transform .22s,box-shadow .22s;position:relative;display:flex;flex-direction:column}
+.route-card:hover{transform:translateY(-5px);box-shadow:0 16px 45px rgba(0,0,0,.1)}
+.route-card.rec{border-color:var(--amber);box-shadow:0 0 0 2px rgba(217,119,6,.15)}
+
+.rec-badge{position:absolute;top:1rem;right:1rem;background:var(--amber);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.28rem .75rem;border-radius:50px}
+
+.card-header{padding:1.4rem 1.5rem .8rem}
+.route-num{font-size:.68rem;font-weight:700;color:var(--gray);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.25rem}
+.route-name{font-family:'Playfair Display',serif;font-size:1.35rem;color:var(--forest);margin-bottom:.2rem}
+.route-tag{font-size:.82rem;color:var(--gray)}
+
+.route-stops-bar{padding:.75rem 1.5rem;background:var(--light);border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;align-items:center;gap:.25rem}
+.stop{font-size:.72rem;color:var(--charcoal);font-weight:500;white-space:nowrap}
+.stop.ep{color:var(--forest);font-weight:700}
+.stoparrow{color:var(--amber);font-weight:700;font-size:.8rem;flex-shrink:0}
+
+/* Stats */
+.card-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;padding:1rem 1.5rem;border-bottom:1px solid var(--border)}
+.stat{display:flex;flex-direction:column;gap:.05rem}
+.stat-icon{font-size:.9rem;margin-bottom:.05rem}
+.stat-val{font-size:1.1rem;font-weight:700;color:var(--charcoal);line-height:1.2}
+.stat-lbl{font-size:.65rem;text-transform:uppercase;letter-spacing:.08em;color:var(--gray)}
+
+/* Highlights */
+.card-highlights{padding:.9rem 1.5rem;flex:1}
+.hl-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gray);margin-bottom:.6rem}
+.hl-item{display:flex;gap:.6rem;padding:.35rem 0;border-bottom:1px solid var(--light);align-items:flex-start}
+.hl-item:last-child{border-bottom:none}
+.hl-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;margin-top:.45rem}
+.hl-text{}
+.hl-name{font-size:.78rem;font-weight:600;color:var(--charcoal)}
+.hl-desc{font-size:.72rem;color:var(--gray);line-height:1.4}
+
+/* MAP EXPAND */
+.route-map-expand{border-top:1px solid var(--border)}
+.route-map-expand summary{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem 1.5rem;cursor:pointer;
+  font-size:.82rem;font-weight:600;color:var(--forest);
+  user-select:none;list-style:none;
+  transition:background .15s;
+  gap:.5rem;
+}
+.route-map-expand summary::-webkit-details-marker{display:none}
+.route-map-expand summary:hover{background:var(--light)}
+.route-map-expand[open] summary{background:var(--light);border-bottom:1px solid var(--border)}
+.expand-icon{
+  width:22px;height:22px;border-radius:50%;background:var(--forest);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:transform .25s;
+}
+.route-card.rec .expand-icon{background:var(--amber)}
+.route-map-expand[open] .expand-icon{transform:rotate(180deg)}
+.expand-icon svg{width:11px;height:11px;stroke:#fff;stroke-width:2.5;fill:none}
+.map-frame-wrap{
+  width:100%;height:0;overflow:hidden;
+  transition:height .3s ease;
+  position:relative;
+}
+.route-map-expand[open] .map-frame-wrap{height:300px}
+.map-frame{width:100%;height:300px;border:0;display:block}
+.map-loading{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:var(--light);font-size:.8rem;color:var(--gray);font-weight:500;
+}
+
+/* CTA */
+.card-footer{padding:.9rem 1.5rem 1.4rem}
+.maps-btn{display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;padding:.85rem 1rem;background:var(--forest);color:#fff;text-decoration:none;border-radius:10px;font-size:.88rem;font-weight:600;transition:background .2s;letter-spacing:.01em}
+.maps-btn:hover{background:var(--forest-light)}
+.maps-btn svg{width:18px;height:18px;flex-shrink:0}
+.route-card.rec .maps-btn{background:var(--amber)}
+.route-card.rec .maps-btn:hover{background:var(--rust)}
+
+/* FOOTER */
+footer{background:var(--charcoal);color:rgba(255,255,255,.55);padding:3.5rem 2rem 5rem;text-align:center}
+@media(max-width:768px){footer{padding-bottom:6rem}}
+footer h2{font-family:'Playfair Display',serif;color:#fff;font-size:2rem;margin-bottom:.4rem}
+footer p{font-size:.85rem;line-height:1.9;max-width:480px;margin:.5rem auto}
+.footer-hint{font-size:.72rem;color:rgba(255,255,255,.25);margin-top:2rem;line-height:1.7}
+
+@media(max-width:640px){
+  nav{padding:.7rem 1rem}
+  .nav-links{display:none}
+  .etappe-section{padding:2.5rem 1rem}
+  .routes-grid{grid-template-columns:1fr}
+  .hero-stats{gap:1.2rem}
+  .hero-stat-val{font-size:1.5rem}
+  .van-img{width:180px}
+  .route-map-expand[open] .map-frame-wrap{height:240px}
+  .map-frame{height:240px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">🚐 Stammtisch Roadtrip 2026</a>
+  <ul class="nav-links">
+    <li><a href="#etappe1">Etappe 1 · 6. Juli</a></li>
+    <li><a href="#etappe2">Etappe 2 · 7. Juli</a></li>
+    <li><a href="#etappe3">Etappe 3 · 9. Juli</a></li>
+  </ul>
+</nav>
+
+<!-- MOBILE STICKY INDICATOR -->
+<div class="mob-indicator" id="mobIndicator" aria-live="polite">
+  <span class="mob-ind-etappe" id="mobEtappe">Stammtisch Roadtrip 2026</span>
+  <span class="mob-ind-route" id="mobRoute">Scrollen um Route zu wählen</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-road"></div>
+  <div class="hero-mountains"></div>
+  <div class="hero-content">
+    <div class="hero-badge">VW T3 Erprobungsfahrt · 6.–9. Juli 2026</div>
+
+    <div class="van-img-wrap">
+      <img src="assets/images/vw-t3.png" class="van-img" alt="VW T3 Camper">
+    </div>
+
+    <h1>Vier Männer.<br><em>Eine Legende.</em> Keine Autobahn.</h1>
+    <p class="hero-sub">Biskirchen · Stuttgart · Überlingen am Bodensee · Heimweg</p>
+
+    <div class="hero-stats">
+      <div><span class="hero-stat-val">4</span><span class="hero-stat-lbl">Tage</span></div>
+      <div><span class="hero-stat-val">3</span><span class="hero-stat-lbl">Etappen</span></div>
+      <div><span class="hero-stat-val">~950</span><span class="hero-stat-lbl">Kilometer</span></div>
+      <div><span class="hero-stat-val">∞</span><span class="hero-stat-lbl">Geschichten</span></div>
+    </div>
+
+    <div class="hero-route">
+      <span class="rs hl">Biskirchen</span><span class="ra">→</span>
+      <span class="rs">Rheintal</span><span class="ra">→</span>
+      <span class="rs hl">Stuttgart</span><span class="ra">→</span>
+      <span class="rs">Schwäbische Alb</span><span class="ra">→</span>
+      <span class="rs hl">Überlingen</span><span class="ra">→</span>
+      <span class="rs">Schwarzwald</span><span class="ra">→</span>
+      <span class="rs hl">Heimweg</span>
+    </div>
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<div class="overview">
+  <div class="overview-inner">
+    <div class="ov-card"><div class="ov-label">Start</div><div class="ov-val">Biskirchen</div><div class="ov-sub">Am Hain 23, 35638 Leun</div></div>
+    <div class="ov-card"><div class="ov-label">Übernachtung 1</div><div class="ov-val">Stuttgart</div><div class="ov-sub">Hofmeisterstr. 16, Vaihingen</div></div>
+    <div class="ov-card"><div class="ov-label">Ziel &amp; Basis</div><div class="ov-val">Überlingen</div><div class="ov-sub">Ferienwohnung · 7.–9. Juli</div></div>
+    <div class="ov-card"><div class="ov-label">Fahrzeug</div><div class="ov-val">VW T3</div><div class="ov-sub">Camper · Keine Autobahn</div></div>
+    <div class="ov-card"><div class="ov-label">Besatzung</div><div class="ov-val">4 Mann</div><div class="ov-sub">Stammtisch-Crew</div></div>
+  </div>
+</div>
+
+<!-- ═══════ ETAPPE 1 ═══════ -->
+<section class="etappe-section" id="etappe1">
+  <div class="section-inner">
+    <div class="etappe-label">Etappe 1 · Sonntag, 6. Juli 2026</div>
+    <h2 class="section-title">Biskirchen → Stuttgart Vaihingen</h2>
+    <div class="section-meta">
+      <span><strong>Start:</strong> Am Hain 23, Biskirchen</span>
+      <span><strong>Ziel:</strong> Hofmeisterstraße 16, Stuttgart-Vaihingen</span>
+      <span><strong>Übernachtung:</strong> Wohnung</span>
+      <span><strong>Tipp:</strong> Früh starten — genug Zeit für Stopps am Rhein</span>
+    </div>
+    <div class="routes-grid">
+
+      <!-- E1-R1 -->
+      <div class="route-card rec"
+           data-etappe="Etappe 1 · 6. Juli"
+           data-route-num="Route 1"
+           data-route-name="Rhein-Romantik">
+        <div class="rec-badge">Empfohlen</div>
+        <div class="card-header">
+          <div class="route-num">Route 1</div>
+          <div class="route-name">Rhein-Romantik</div>
+          <div class="route-tag">Der Klassiker — Loreley, Burgen &amp; Weinberge</div>
+        </div>
+        <div class="route-stops-bar">
+          <span class="stop ep">Biskirchen</span><span class="stoparrow">›</span><span class="stop">Wetzlar</span><span class="stoparrow">›</span><span class="stop">Limburg</span><span class="stoparrow">›</span><span class="stop">Koblenz</span><span class="stoparrow">›</span><span class="stop">Boppard</span><span class="stoparrow">›</span><span class="stop">Rüdesheim</span><span class="stoparrow">›</span><span class="stop">Heidelberg</span><span class="stoparrow">›</span><span class="stop ep">Stuttgart</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-icon">📍</div><div class="stat-val">~295 km</div><div class="stat-lbl">Strecke</div></div>
+          <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">~5 h 30</div><div class="stat-lbl">Fahrzeit</div></div>
+          <div class="stat"><div class="stat-icon">⛰</div><div class="stat-val">+1.350 m</div><div class="stat-lbl">Höhenmeter</div></div>
+          <div class="stat"><div class="stat-icon">🛤</div><div class="stat-val">B-Straßen</div><div class="stat-lbl">Charakter</div></div>
+        </div>
+        <div class="card-highlights">
+          <div class="hl-title">Highlights entlang der Route</div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Deutsches Eck, Koblenz</div><div class="hl-desc">Zusammenfluss von Rhein und Mosel — mit mächtigem Reiterstandbild Kaiser Wilhelms I.</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Loreley-Felsen</div><div class="hl-desc">132 m hoher Schieferfelsen — legendärster Aussichtspunkt des Mittelrheins</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Burg Rheinfels, St. Goar</div><div class="hl-desc">Einst größte Burg am Rhein — imposante Ruinenanlage mit Panoramablick</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Rüdesheim am Rhein</div><div class="hl-desc">Drosselgasse, Weinproben, Seilbahn zum Niederwalddenkmal</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Heidelberg</div><div class="hl-desc">Romantische Altstadt, Schlossruine, Alte Brücke — kurze Kaffeepause lohnt sich</div></div></div>
+        </div>
+        <details class="route-map-expand"
+                 data-map="https://maps.google.com/maps?f=d&hl=de&saddr=Biskirchen,+35638+Leun&daddr=Wetzlar+to:Koblenz+to:Boppard+to:R%C3%BCdesheim+am+Rhein+to:Heidelberg+to:Stuttgart-Vaihingen&output=embed">
+          <summary>
+            Route in Karte anzeigen
+            <span class="expand-icon"><svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </summary>
+          <div class="map-frame-wrap">
+            <div class="map-loading">Karte wird geladen …</div>
+            <iframe class="map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </details>
+        <div class="card-footer">
+          <a class="maps-btn" href="https://www.google.com/maps/dir/?api=1&origin=Am+Hain+23%2C+35638+Leun&destination=Hofmeisterstra%C3%9Fe+16%2C+70563+Stuttgart&waypoints=Wetzlar%7CLimburg+an+der+Lahn%7CKoblenz%7CBoppard%7CR%C3%BCdesheim+am+Rhein%7CHeidelberg&avoid=highways&travelmode=driving" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+
+      <!-- E1-R2 -->
+      <div class="route-card"
+           data-etappe="Etappe 1 · 6. Juli"
+           data-route-num="Route 2"
+           data-route-name="Lahntal &amp; Mittelrhein">
+        <div class="card-header">
+          <div class="route-num">Route 2</div>
+          <div class="route-name">Lahntal &amp; Mittelrhein</div>
+          <div class="route-tag">Burgen, Flussschleifen &amp; Weinstraße</div>
+        </div>
+        <div class="route-stops-bar">
+          <span class="stop ep">Biskirchen</span><span class="stoparrow">›</span><span class="stop">Weilburg</span><span class="stoparrow">›</span><span class="stop">Runkel</span><span class="stoparrow">›</span><span class="stop">Limburg</span><span class="stoparrow">›</span><span class="stop">Koblenz</span><span class="stoparrow">›</span><span class="stop">Bad Kreuznach</span><span class="stoparrow">›</span><span class="stop ep">Stuttgart</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-icon">📍</div><div class="stat-val">~275 km</div><div class="stat-lbl">Strecke</div></div>
+          <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">~5 h 15</div><div class="stat-lbl">Fahrzeit</div></div>
+          <div class="stat"><div class="stat-icon">⛰</div><div class="stat-val">+1.650 m</div><div class="stat-lbl">Höhenmeter</div></div>
+          <div class="stat"><div class="stat-icon">🛤</div><div class="stat-val">Kurvig &amp; Hügelig</div><div class="stat-lbl">Charakter</div></div>
+        </div>
+        <div class="card-highlights">
+          <div class="hl-title">Highlights entlang der Route</div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Schloss Weilburg</div><div class="hl-desc">Barockschloss auf Halbinsel der Lahn — romantischer Startpunkt</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Burg Runkel</div><div class="hl-desc">Dramatische Burganlage auf Felsen, direkt über der Lahn — noch bewohnt</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Lahn-Schleife</div><div class="hl-desc">Naturidyllische Flusswindungen — einer der schönsten Lahnabschnitte</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Mittelrhein Koblenz–Bingen</div><div class="hl-desc">UNESCO-Welterbe: endlose Burgen und Weinbergterrassen</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Bad Kreuznach</div><div class="hl-desc">Brücken-Häuser-Ensemble und Nahe-Weinstraße — ideal für eine Pause</div></div></div>
+        </div>
+        <details class="route-map-expand"
+                 data-map="https://maps.google.com/maps?f=d&hl=de&saddr=Biskirchen,+35638+Leun&daddr=Weilburg+to:Runkel+to:Koblenz+to:Bad+Kreuznach+to:Stuttgart-Vaihingen&output=embed">
+          <summary>
+            Route in Karte anzeigen
+            <span class="expand-icon"><svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </summary>
+          <div class="map-frame-wrap">
+            <div class="map-loading">Karte wird geladen …</div>
+            <iframe class="map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </details>
+        <div class="card-footer">
+          <a class="maps-btn" href="https://www.google.com/maps/dir/?api=1&origin=Am+Hain+23%2C+35638+Leun&destination=Hofmeisterstra%C3%9Fe+16%2C+70563+Stuttgart&waypoints=Weilburg%7CRunkel%2C+Hessen%7CLimburg+an+der+Lahn%7CKoblenz%7CBingen+am+Rhein%7CBad+Kreuznach%7CKaiserslautern&avoid=highways&travelmode=driving" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+
+      <!-- E1-R3 -->
+      <div class="route-card"
+           data-etappe="Etappe 1 · 6. Juli"
+           data-route-num="Route 3"
+           data-route-name="Taunus &amp; Rheingau">
+        <div class="card-header">
+          <div class="route-num">Route 3</div>
+          <div class="route-name">Taunus &amp; Rheingau</div>
+          <div class="route-tag">Ausblicke, Skyline &amp; Weinstraße</div>
+        </div>
+        <div class="route-stops-bar">
+          <span class="stop ep">Biskirchen</span><span class="stoparrow">›</span><span class="stop">Wetzlar</span><span class="stoparrow">›</span><span class="stop">Bad Homburg</span><span class="stoparrow">›</span><span class="stop">Frankfurt</span><span class="stoparrow">›</span><span class="stop">Wiesbaden</span><span class="stoparrow">›</span><span class="stop">Rüdesheim</span><span class="stoparrow">›</span><span class="stop">Heidelberg</span><span class="stoparrow">›</span><span class="stop ep">Stuttgart</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-icon">📍</div><div class="stat-val">~320 km</div><div class="stat-lbl">Strecke</div></div>
+          <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">~6 h 00</div><div class="stat-lbl">Fahrzeit</div></div>
+          <div class="stat"><div class="stat-icon">⛰</div><div class="stat-val">+1.100 m</div><div class="stat-lbl">Höhenmeter</div></div>
+          <div class="stat"><div class="stat-icon">🛤</div><div class="stat-val">Stadt &amp; Land</div><div class="stat-lbl">Charakter</div></div>
+        </div>
+        <div class="card-highlights">
+          <div class="hl-title">Highlights entlang der Route</div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Saalburg Römerkastell</div><div class="hl-desc">Besterhaltenes römisches Kastell im Taunus — Zeitreise ins Imperium</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Taunus-Kamm</div><div class="hl-desc">Weitblicke über Frankfurt und das Rhein-Main-Gebiet vom Großen Feldberg</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Frankfurter Skyline</div><div class="hl-desc">Deutschlands Finanzzentrum aus dem Vorbeifahren — beeindruckende Kulisse</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Rheingau Weinstraße</div><div class="hl-desc">Weltberühmte Riesling-Region — Kloster Eberbach lohnt einen Stop</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Nibelungenbrücke Worms</div><div class="hl-desc">Historisches Rheinufer mit Dom und Nibelungen-Sage</div></div></div>
+        </div>
+        <details class="route-map-expand"
+                 data-map="https://maps.google.com/maps?f=d&hl=de&saddr=Biskirchen,+35638+Leun&daddr=Bad+Homburg+vor+der+H%C3%B6he+to:Frankfurt+am+Main+to:Wiesbaden+to:R%C3%BCdesheim+am+Rhein+to:Heidelberg+to:Stuttgart-Vaihingen&output=embed">
+          <summary>
+            Route in Karte anzeigen
+            <span class="expand-icon"><svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </summary>
+          <div class="map-frame-wrap">
+            <div class="map-loading">Karte wird geladen …</div>
+            <iframe class="map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </details>
+        <div class="card-footer">
+          <a class="maps-btn" href="https://www.google.com/maps/dir/?api=1&origin=Am+Hain+23%2C+35638+Leun&destination=Hofmeisterstra%C3%9Fe+16%2C+70563+Stuttgart&waypoints=Wetzlar%7CBad+Homburg+vor+der+H%C3%B6he%7CFrankfurt+am+Main%7CWiesbaden%7CR%C3%BCdesheim+am+Rhein%7CHeidelberg&avoid=highways&travelmode=driving" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ETAPPE 2 ═══════ -->
+<section class="etappe-section" id="etappe2">
+  <div class="section-inner">
+    <div class="etappe-label">Etappe 2 · Montag, 7. Juli 2026</div>
+    <h2 class="section-title">Stuttgart Vaihingen → Überlingen</h2>
+    <div class="section-meta">
+      <span><strong>Start:</strong> Hofmeisterstraße 16, Stuttgart-Vaihingen</span>
+      <span><strong>Ziel:</strong> Ferienwohnung, Überlingen am Bodensee</span>
+      <span><strong>Übernachtung:</strong> Ferienwohnung bis 9. Juli</span>
+      <span><strong>Tipp:</strong> Kürzeste Etappe — Zeit für ausgiebige Mittagspause</span>
+    </div>
+    <div class="routes-grid">
+
+      <!-- E2-R1 -->
+      <div class="route-card rec"
+           data-etappe="Etappe 2 · 7. Juli"
+           data-route-num="Route 1"
+           data-route-name="Schwäbische Alb &amp; Hohenzollern">
+        <div class="rec-badge">Empfohlen</div>
+        <div class="card-header">
+          <div class="route-num">Route 1</div>
+          <div class="route-name">Schwäbische Alb &amp; Hohenzollern</div>
+          <div class="route-tag">Burgen, Donautal &amp; erster Bodenseeblick</div>
+        </div>
+        <div class="route-stops-bar">
+          <span class="stop ep">Stuttgart</span><span class="stoparrow">›</span><span class="stop">Tübingen</span><span class="stoparrow">›</span><span class="stop">Hechingen</span><span class="stoparrow">›</span><span class="stop">Sigmaringen</span><span class="stoparrow">›</span><span class="stop">Meßkirch</span><span class="stoparrow">›</span><span class="stop">Pfullendorf</span><span class="stoparrow">›</span><span class="stop ep">Überlingen</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-icon">📍</div><div class="stat-val">~180 km</div><div class="stat-lbl">Strecke</div></div>
+          <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">~3 h 30</div><div class="stat-lbl">Fahrzeit</div></div>
+          <div class="stat"><div class="stat-icon">⛰</div><div class="stat-val">+1.250 m</div><div class="stat-lbl">Höhenmeter</div></div>
+          <div class="stat"><div class="stat-icon">🛤</div><div class="stat-val">Burgen &amp; Täler</div><div class="stat-lbl">Charakter</div></div>
+        </div>
+        <div class="card-highlights">
+          <div class="hl-title">Highlights entlang der Route</div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Tübingen Altstadt</div><div class="hl-desc">Fachwerk, Universitäts-Flair und Stocherkähne auf dem Neckar</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Burg Hohenzollern</div><div class="hl-desc">Monumentale Stammburg der Preußen auf freistehendem Bergkegel</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Schloss Sigmaringen</div><div class="hl-desc">Fürstliche Residenz direkt über dem Donautal — fotogen von der Brücke</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Donautal</div><div class="hl-desc">Wilde Kalkfelsen-Schlucht zwischen Tuttlingen und Sigmaringen</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Erster Bodenseeblick</div><div class="hl-desc">Vor Überlingen plötzlich das „Schwäbische Meer" — unvergesslich</div></div></div>
+        </div>
+        <details class="route-map-expand"
+                 data-map="https://maps.google.com/maps?f=d&hl=de&saddr=Stuttgart-Vaihingen&daddr=T%C3%BCbingen+to:Hechingen+to:Sigmaringen+to:Me%C3%9Fkirch+to:%C3%9Cberlingen+am+Bodensee&output=embed">
+          <summary>
+            Route in Karte anzeigen
+            <span class="expand-icon"><svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </summary>
+          <div class="map-frame-wrap">
+            <div class="map-loading">Karte wird geladen …</div>
+            <iframe class="map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </details>
+        <div class="card-footer">
+          <a class="maps-btn" href="https://www.google.com/maps/dir/?api=1&origin=Hofmeisterstra%C3%9Fe+16%2C+70563+Stuttgart&destination=%C3%9Cberlingen+am+Bodensee&waypoints=T%C3%BCbingen%7CHechingen%7CSigmaringen%7CMe%C3%9Fkirch%7CPfullendorf&avoid=highways&travelmode=driving" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+
+      <!-- E2-R2 -->
+      <div class="route-card"
+           data-etappe="Etappe 2 · 7. Juli"
+           data-route-num="Route 2"
+           data-route-name="Nordschwarzwald">
+        <div class="card-header">
+          <div class="route-num">Route 2</div>
+          <div class="route-name">Nordschwarzwald</div>
+          <div class="route-tag">Hochwald, Panoramastraßen &amp; Wasserfälle</div>
+        </div>
+        <div class="route-stops-bar">
+          <span class="stop ep">Stuttgart</span><span class="stoparrow">›</span><span class="stop">Calw</span><span class="stoparrow">›</span><span class="stop">Freudenstadt</span><span class="stoparrow">›</span><span class="stop">Wolfach</span><span class="stoparrow">›</span><span class="stop">Villingen</span><span class="stoparrow">›</span><span class="stop">Stockach</span><span class="stoparrow">›</span><span class="stop ep">Überlingen</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-icon">📍</div><div class="stat-val">~230 km</div><div class="stat-lbl">Strecke</div></div>
+          <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">~4 h 45</div><div class="stat-lbl">Fahrzeit</div></div>
+          <div class="stat"><div class="stat-icon">⛰</div><div class="stat-val">+2.200 m</div><div class="stat-lbl">Höhenmeter</div></div>
+          <div class="stat"><div class="stat-icon">🛤</div><div class="stat-val">Hochwald &amp; Kurven</div><div class="stat-lbl">Charakter</div></div>
+        </div>
+        <div class="card-highlights">
+          <div class="hl-title">Highlights entlang der Route</div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Calw — Hermann-Hesse-Stadt</div><div class="hl-desc">Geburtsstadt des Literaturnobelpreisträgers im malerischen Nagoldtal</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Schwarzwald-Hochstraße</div><div class="hl-desc">Panoramastraße auf dem Kamm — weite Aussichten bis in die Rheinebene</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Freudenstadt</div><div class="hl-desc">Größter Marktplatz Deutschlands — umgeben von historischen Laubengängen</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Kinzigtal &amp; Wolfach</div><div class="hl-desc">Malerisches Schwarzwaldtal mit Flößertradition und Freilichtmuseen</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Donauquelle Donaueschingen</div><div class="hl-desc">Markantes Rundbecken — hier beginnt offiziell Europas zweitlängster Fluss</div></div></div>
+        </div>
+        <details class="route-map-expand"
+                 data-map="https://maps.google.com/maps?f=d&hl=de&saddr=Stuttgart-Vaihingen&daddr=Calw+to:Freudenstadt+to:Wolfach+to:Donaueschingen+to:%C3%9Cberlingen+am+Bodensee&output=embed">
+          <summary>
+            Route in Karte anzeigen
+            <span class="expand-icon"><svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </summary>
+          <div class="map-frame-wrap">
+            <div class="map-loading">Karte wird geladen …</div>
+            <iframe class="map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </details>
+        <div class="card-footer">
+          <a class="maps-btn" href="https://www.google.com/maps/dir/?api=1&origin=Hofmeisterstra%C3%9Fe+16%2C+70563+Stuttgart&destination=%C3%9Cberlingen+am+Bodensee&waypoints=Calw%7CNagold%7CFreudenstadt%7CWolfach%7CVillingen-Schwenningen%7CStockach&avoid=highways&travelmode=driving" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+
+      <!-- E2-R3 -->
+      <div class="route-card"
+           data-etappe="Etappe 2 · 7. Juli"
+           data-route-num="Route 3"
+           data-route-name="Neckartal &amp; Oberschwaben">
+        <div class="card-header">
+          <div class="route-num">Route 3</div>
+          <div class="route-name">Neckartal &amp; Oberschwaben</div>
+          <div class="route-tag">Entspannt &amp; vielfältig durch die Breite</div>
+        </div>
+        <div class="route-stops-bar">
+          <span class="stop ep">Stuttgart</span><span class="stoparrow">›</span><span class="stop">Esslingen</span><span class="stoparrow">›</span><span class="stop">Reutlingen</span><span class="stoparrow">›</span><span class="stop">Münsingen</span><span class="stoparrow">›</span><span class="stop">Biberach</span><span class="stoparrow">›</span><span class="stop">Ravensburg</span><span class="stoparrow">›</span><span class="stop ep">Überlingen</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-icon">📍</div><div class="stat-val">~210 km</div><div class="stat-lbl">Strecke</div></div>
+          <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">~4 h 00</div><div class="stat-lbl">Fahrzeit</div></div>
+          <div class="stat"><div class="stat-icon">⛰</div><div class="stat-val">+900 m</div><div class="stat-lbl">Höhenmeter</div></div>
+          <div class="stat"><div class="stat-icon">🛤</div><div class="stat-val">Gemütlich &amp; Flach</div><div class="stat-lbl">Charakter</div></div>
+        </div>
+        <div class="card-highlights">
+          <div class="hl-title">Highlights entlang der Route</div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Esslingen am Neckar</div><div class="hl-desc">Mittelalterliche Altstadt mit Weinbergen — oft übersehen, immer wunderschön</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Reutlingen &amp; Albtrauf</div><div class="hl-desc">Lebendige Innenstadt am Fuß der Schwäbischen Alb mit weitem Albblick</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Biosphärengebiet Münsingen</div><div class="hl-desc">UNESCO-Biosphäre Schwäbische Alb — Orchideenwiesen und Wacholderheiden</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Ravensburg</div><div class="hl-desc">„Stadt der Türme und Tore" — historische Spielemanufaktur-Stadt</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Ankunft Überlingen</div><div class="hl-desc">Charmante Seepromenade mit Blick auf die Schweizer Alpen</div></div></div>
+        </div>
+        <details class="route-map-expand"
+                 data-map="https://maps.google.com/maps?f=d&hl=de&saddr=Stuttgart-Vaihingen&daddr=Esslingen+am+Neckar+to:Reutlingen+to:M%C3%BCnsingen+to:Ravensburg+to:%C3%9Cberlingen+am+Bodensee&output=embed">
+          <summary>
+            Route in Karte anzeigen
+            <span class="expand-icon"><svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </summary>
+          <div class="map-frame-wrap">
+            <div class="map-loading">Karte wird geladen …</div>
+            <iframe class="map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </details>
+        <div class="card-footer">
+          <a class="maps-btn" href="https://www.google.com/maps/dir/?api=1&origin=Hofmeisterstra%C3%9Fe+16%2C+70563+Stuttgart&destination=%C3%9Cberlingen+am+Bodensee&waypoints=Esslingen+am+Neckar%7CN%C3%BCrtingen%7CReutlingen%7CM%C3%BCnsingen%7CBiberach+an+der+Ri%C3%9F%7CRavensburg&avoid=highways&travelmode=driving" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ ETAPPE 3 ═══════ -->
+<section class="etappe-section" id="etappe3">
+  <div class="section-inner">
+    <div class="etappe-label">Etappe 3 · Mittwoch, 9. Juli 2026</div>
+    <h2 class="section-title">Überlingen → Heimweg nach Biskirchen</h2>
+    <div class="section-meta">
+      <span><strong>Start:</strong> Überlingen am Bodensee</span>
+      <span><strong>Ziel:</strong> Am Hain 23, Biskirchen</span>
+      <span><strong>Achtung:</strong> Längste Etappe — unbedingt früh starten!</span>
+      <span><strong>Tipp:</strong> Übernachtung unterwegs möglich bei Route 1 oder 3</span>
+    </div>
+    <div class="routes-grid">
+
+      <!-- E3-R1 -->
+      <div class="route-card rec"
+           data-etappe="Etappe 3 · 9. Juli"
+           data-route-num="Route 1"
+           data-route-name="Hochrhein &amp; Schwarzwald">
+        <div class="rec-badge">Empfohlen</div>
+        <div class="card-header">
+          <div class="route-num">Route 1</div>
+          <div class="route-name">Hochrhein &amp; Schwarzwald</div>
+          <div class="route-tag">Rheinfall, Freiburg &amp; Rheintal — die epische Rückfahrt</div>
+        </div>
+        <div class="route-stops-bar">
+          <span class="stop ep">Überlingen</span><span class="stoparrow">›</span><span class="stop">Singen</span><span class="stoparrow">›</span><span class="stop">Schaffhausen</span><span class="stoparrow">›</span><span class="stop">Basel</span><span class="stoparrow">›</span><span class="stop">Freiburg</span><span class="stoparrow">›</span><span class="stop">Offenburg</span><span class="stoparrow">›</span><span class="stop">Heidelberg</span><span class="stoparrow">›</span><span class="stop">Frankfurt</span><span class="stoparrow">›</span><span class="stop ep">Biskirchen</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-icon">📍</div><div class="stat-val">~490 km</div><div class="stat-lbl">Strecke</div></div>
+          <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">~9 h 00</div><div class="stat-lbl">Fahrzeit</div></div>
+          <div class="stat"><div class="stat-icon">⛰</div><div class="stat-val">+2.400 m</div><div class="stat-lbl">Höhenmeter</div></div>
+          <div class="stat"><div class="stat-icon">🛤</div><div class="stat-val">Episch &amp; Vielfältig</div><div class="stat-lbl">Charakter</div></div>
+        </div>
+        <div class="card-highlights">
+          <div class="hl-title">Highlights entlang der Route</div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Hohentwiel, Singen</div><div class="hl-desc">Freiluftruine auf erloschemem Vulkan — größte Festungsanlage Südwestdeutschlands</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Rheinfall Schaffhausen</div><div class="hl-desc">Größter Wasserfall Europas — tosende Wassermassen, Pflichtpause!</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Basel Altstadt &amp; Rheinufer</div><div class="hl-desc">Grenzstadt mit Kunstszene, Münster und legendärem Rhein-Schwimmen</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Freiburg im Breisgau</div><div class="hl-desc">Gotisches Münster, Bächle in der Altstadt, Tor zum Schwarzwald</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Kaiserstuhl</div><div class="hl-desc">Vulkanisches Weinbaugebiet — wärmster Fleck Deutschlands, Weinterrassen</div></div></div>
+        </div>
+        <details class="route-map-expand"
+                 data-map="https://maps.google.com/maps?f=d&hl=de&saddr=%C3%9Cberlingen+am+Bodensee&daddr=Singen+to:Schaffhausen+to:Basel+to:Freiburg+im+Breisgau+to:Heidelberg+to:Frankfurt+am+Main+to:Biskirchen,+Leun&output=embed">
+          <summary>
+            Route in Karte anzeigen
+            <span class="expand-icon"><svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </summary>
+          <div class="map-frame-wrap">
+            <div class="map-loading">Karte wird geladen …</div>
+            <iframe class="map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </details>
+        <div class="card-footer">
+          <a class="maps-btn" href="https://www.google.com/maps/dir/?api=1&origin=%C3%9Cberlingen+am+Bodensee&destination=Am+Hain+23%2C+35638+Leun&waypoints=Singen+%28Hohentwiel%29%7CSchaffhausen%7CBasel%7CFreiburg+im+Breisgau%7COffenburg%7CHeidelberg%7CFrankfurt+am+Main&avoid=highways&travelmode=driving" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+
+      <!-- E3-R2 -->
+      <div class="route-card"
+           data-etappe="Etappe 3 · 9. Juli"
+           data-route-num="Route 2"
+           data-route-name="Alb &amp; Odenwald">
+        <div class="card-header">
+          <div class="route-num">Route 2</div>
+          <div class="route-name">Alb &amp; Odenwald</div>
+          <div class="route-tag">Kompakter &amp; trotzdem landschaftlich schön</div>
+        </div>
+        <div class="route-stops-bar">
+          <span class="stop ep">Überlingen</span><span class="stoparrow">›</span><span class="stop">Sigmaringen</span><span class="stoparrow">›</span><span class="stop">Reutlingen</span><span class="stoparrow">›</span><span class="stop">Heilbronn</span><span class="stoparrow">›</span><span class="stop">Mosbach</span><span class="stoparrow">›</span><span class="stop">Darmstadt</span><span class="stoparrow">›</span><span class="stop">Frankfurt</span><span class="stoparrow">›</span><span class="stop ep">Biskirchen</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-icon">📍</div><div class="stat-val">~385 km</div><div class="stat-lbl">Strecke</div></div>
+          <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">~7 h 15</div><div class="stat-lbl">Fahrzeit</div></div>
+          <div class="stat"><div class="stat-icon">⛰</div><div class="stat-val">+1.500 m</div><div class="stat-lbl">Höhenmeter</div></div>
+          <div class="stat"><div class="stat-icon">🛤</div><div class="stat-val">Vielfältig &amp; Direkt</div><div class="stat-lbl">Charakter</div></div>
+        </div>
+        <div class="card-highlights">
+          <div class="hl-title">Highlights entlang der Route</div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Donautal Sigmaringen</div><div class="hl-desc">Wilde Kalkfelsen und mittelalterliche Burgen an der oberen Donau</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Schwäbische Alb</div><div class="hl-desc">Wacholderheiden, Höhlen und einsame Hochflächen — unberührte Natur</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Neckartal bei Mosbach</div><div class="hl-desc">Romantisches Weinbaugebiet mit alten Burgruinen über dem Fluss</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Odenwald</div><div class="hl-desc">Ursprüngliches Mittelgebirge — kaum Touristen, dafür echte Stille</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Mathildenhöhe Darmstadt</div><div class="hl-desc">UNESCO-Jugendstil-Ensemble — russische Kapelle und Hochzeitsturm</div></div></div>
+        </div>
+        <details class="route-map-expand"
+                 data-map="https://maps.google.com/maps?f=d&hl=de&saddr=%C3%9Cberlingen+am+Bodensee&daddr=Sigmaringen+to:Reutlingen+to:Heilbronn+to:Mosbach+to:Darmstadt+to:Frankfurt+am+Main+to:Biskirchen,+Leun&output=embed">
+          <summary>
+            Route in Karte anzeigen
+            <span class="expand-icon"><svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </summary>
+          <div class="map-frame-wrap">
+            <div class="map-loading">Karte wird geladen …</div>
+            <iframe class="map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </details>
+        <div class="card-footer">
+          <a class="maps-btn" href="https://www.google.com/maps/dir/?api=1&origin=%C3%9Cberlingen+am+Bodensee&destination=Am+Hain+23%2C+35638+Leun&waypoints=Sigmaringen%7CReutlingen%7CHeilbronn%7CMosbach%7CDarmstadt%7CFrankfurt+am+Main&avoid=highways&travelmode=driving" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+
+      <!-- E3-R3 -->
+      <div class="route-card"
+           data-etappe="Etappe 3 · 9. Juli"
+           data-route-num="Route 3"
+           data-route-name="Bodensee &amp; Elsass">
+        <div class="card-header">
+          <div class="route-num">Route 3</div>
+          <div class="route-name">Bodensee &amp; Elsass</div>
+          <div class="route-tag">International — Schweiz, Frankreich &amp; zurück</div>
+        </div>
+        <div class="route-stops-bar">
+          <span class="stop ep">Überlingen</span><span class="stoparrow">›</span><span class="stop">Meersburg</span><span class="stoparrow">›</span><span class="stop">Konstanz</span><span class="stoparrow">›</span><span class="stop">Stein a.Rh.</span><span class="stoparrow">›</span><span class="stop">Freiburg</span><span class="stoparrow">›</span><span class="stop">Strasbourg</span><span class="stoparrow">›</span><span class="stop">Karlsruhe</span><span class="stoparrow">›</span><span class="stop ep">Biskirchen</span>
+        </div>
+        <div class="card-stats">
+          <div class="stat"><div class="stat-icon">📍</div><div class="stat-val">~505 km</div><div class="stat-lbl">Strecke</div></div>
+          <div class="stat"><div class="stat-icon">⏱</div><div class="stat-val">~9 h 30</div><div class="stat-lbl">Fahrzeit</div></div>
+          <div class="stat"><div class="stat-icon">⛰</div><div class="stat-val">+1.700 m</div><div class="stat-lbl">Höhenmeter</div></div>
+          <div class="stat"><div class="stat-icon">🛤</div><div class="stat-val">International</div><div class="stat-lbl">Charakter</div></div>
+        </div>
+        <div class="card-highlights">
+          <div class="hl-title">Highlights entlang der Route</div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Meersburg</div><div class="hl-desc">Älteste bewohnte Burg Deutschlands — Blick über den Bodensee auf die Alpen</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Konstanz &amp; Konzilgebäude</div><div class="hl-desc">Universitätsstadt an der Schweizer Grenze mit historischer Altstadt</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Stein am Rhein</div><div class="hl-desc">Besterhaltene mittelalterliche Kleinstadt — bemalte Fassaden, unglaublich schön</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Strasbourg / Elsass</div><div class="hl-desc">Europäische Hauptstadt mit einzigartiger deutsch-französischer Kultur, Petite France</div></div></div>
+          <div class="hl-item"><div class="hl-dot"></div><div class="hl-text"><div class="hl-name">Rheintal Karlsruhe → Frankfurt</div><div class="hl-desc">Breite Flusslandschaft entlang des Rheins — letzter Abschnitt gen Norden</div></div></div>
+        </div>
+        <details class="route-map-expand"
+                 data-map="https://maps.google.com/maps?f=d&hl=de&saddr=%C3%9Cberlingen+am+Bodensee&daddr=Meersburg+to:Konstanz+to:Stein+am+Rhein+to:Freiburg+im+Breisgau+to:Strasbourg+to:Karlsruhe+to:Frankfurt+am+Main+to:Biskirchen,+Leun&output=embed">
+          <summary>
+            Route in Karte anzeigen
+            <span class="expand-icon"><svg viewBox="0 0 12 12" stroke-linecap="round" stroke-linejoin="round"><polyline points="2,4 6,8 10,4"/></svg></span>
+          </summary>
+          <div class="map-frame-wrap">
+            <div class="map-loading">Karte wird geladen …</div>
+            <iframe class="map-frame" src="" frameborder="0" allowfullscreen loading="lazy"></iframe>
+          </div>
+        </details>
+        <div class="card-footer">
+          <a class="maps-btn" href="https://www.google.com/maps/dir/?api=1&origin=%C3%9Cberlingen+am+Bodensee&destination=Am+Hain+23%2C+35638+Leun&waypoints=Meersburg%7CKonstanz%7CStein+am+Rhein%7CSchaffhausen%7CFreiburg+im+Breisgau%7CStrasbourg%7CKarlsruhe%7CFrankfurt+am+Main&avoid=highways&travelmode=driving" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            In Google Maps öffnen
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <h2>Gute Fahrt, Stammtisch!</h2>
+  <p>Der T3 wartet. Der Rhein fließt. Der Bodensee glitzert.<br>Lasst die Autobahn links liegen und genießt die Straße.</p>
+  <p style="margin-top:.5rem;color:rgba(255,255,255,.4);font-size:.78rem">
+    6. Juli · Biskirchen → Stuttgart &nbsp;|&nbsp;
+    7. Juli · Stuttgart → Überlingen &nbsp;|&nbsp;
+    8. Juli · Ruhetag am Bodensee &nbsp;|&nbsp;
+    9. Juli · Überlingen → Biskirchen
+  </p>
+  <div class="footer-hint">
+    Distanzen und Zeiten sind Richtwerte ohne Pausen · Google Maps ist auf „Autobahnen meiden" voreingestellt<br>
+    Für Routen durch die Schweiz ggf. Vignette erforderlich (CHF 40) · Schweizer Franken nicht vergessen
+  </div>
+</footer>
+
+<script>
+// ── Lazy-load map iframes on expand ──────────────────
+document.querySelectorAll('.route-map-expand').forEach(details => {
+  details.addEventListener('toggle', () => {
+    if (!details.open) return;
+    const iframe = details.querySelector('iframe');
+    if (iframe.getAttribute('src')) return;
+    iframe.src = details.dataset.map;
+    iframe.addEventListener('load', () => {
+      const loading = details.querySelector('.map-loading');
+      if (loading) loading.style.display = 'none';
+    }, { once: true });
+  });
+});
+
+// ── Mobile sticky indicator ───────────────────────────
+const cards = Array.from(document.querySelectorAll('.route-card'));
+const mobEtappe = document.getElementById('mobEtappe');
+const mobRoute  = document.getElementById('mobRoute');
+
+function updateMobIndicator() {
+  const vh2 = window.innerHeight / 2;
+  let bestCard = null, bestDist = Infinity;
+  cards.forEach(card => {
+    const rect = card.getBoundingClientRect();
+    const mid  = rect.top + rect.height / 2;
+    const dist = Math.abs(mid - vh2);
+    if (dist < bestDist) { bestDist = dist; bestCard = card; }
+  });
+  if (bestCard) {
+    mobEtappe.textContent = bestCard.dataset.etappe   || '';
+    mobRoute.textContent  = (bestCard.dataset.routeNum || '') + ' · ' + (bestCard.dataset.routeName || '');
+  }
+}
+window.addEventListener('scroll', updateMobIndicator, { passive: true });
+updateMobIndicator();
+
+// ── Highlight active nav link on scroll ──────────────
+const sections = document.querySelectorAll('[id^=etappe]');
+const navLinks  = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 140) cur = s.id; });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}, { passive: true });
+</script>
+</body>
+</html>
